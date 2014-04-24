@@ -12,7 +12,10 @@ using namespace std;
 //Global variables and constants
 
 //Function prototypes
-bool Volley(short, short, char[][10]);
+bool GetCoord(short &, short &);
+void Populate(short &, short &, char[][10]);
+void PlaceIt(short, short &, short &, char[][10], char);
+bool Volley(short &, short &, char[][10]);
 void Display(char[][10]);
 
 //Execution begins HERE
@@ -32,8 +35,9 @@ int main(int argc, char** argv){
     };
     short posx, posy;
     char mChoice;
-    do{
-        Display(Grid);
+    Display(Grid);
+    Populate(posx, posy, Grid);
+    do{        
         Volley(posx, posy, Grid);
         Display(Grid);
         cout << "Continue(y/n)? ";
@@ -43,21 +47,117 @@ int main(int argc, char** argv){
     return 0;
 }
 //Function definitions
-//Pick a peg to move
-bool Volley(short posx, short posy, char Grid[][10]){
+//Input coordinates
+bool GetCoord(short &posx, short &posy){
+    bool isValid = false;
+    cin >> posx >> posy;
+    if((posx >= 0)&&(posx < 10)&&(posy >= 0)&&(posy < 10)) isValid = true;
+    else{
+        cout << "Invalid coordinates! Try again.\n";
+    }
+    return isValid;
+}
+//Populate the board
+void Populate(short & posx, short &posy, char Grid[][10]){
+    char pos = '0', s_type = '0';
+    static short ac_left = 1, fr_left = 2, ds_left = 1;
+    short hp = 0, n_Ships = 0;
+    do{
+        cout << "Enter the type of ship to place:\n";
+        cout << "A. Aircraft Carrier (1 available)\n";
+        cout << "B. Frigate (2 available)\n";
+        cout << "C. Destroyer (1 available)\n";
+        cout << "Enter your choice: ";
+        cin >> s_type;
+        switch(s_type){
+            case 'A':{
+                if(ac_left > 0){
+                    hp = 4;
+                    do{
+                        cout << "Place vertically or horizontally(V/H)? ";
+                        cin >> pos;
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, Grid, pos);
+                    Display(Grid);
+                    ac_left--;
+                    n_Ships++;
+                    break;
+                }
+                else{
+                    cout << "None available! Pick again.\n";
+                    break;
+                }
+            }
+            case 'B': {
+                if(fr_left > 0){
+                    hp = 3;
+                    do{
+                        cout << "Place vertically or horizontally(V/H)? ";
+                        cin >> pos;
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, Grid, pos);
+                    Display(Grid);
+                    fr_left--;
+                    n_Ships++;
+                    break;
+                }
+                else{
+                    cout << "None available! Pick again.\n";
+                    break;
+                }
+            }
+            case 'C': {
+                if(ds_left > 0){
+                    hp = 2;
+                    do{
+                        cout << "Place vertically or horizontally(V/H)? ";
+                        cin >> pos;
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, Grid, pos);
+                    Display(Grid);
+                    ds_left--;
+                    n_Ships++;
+                    break;
+                }
+                else{
+                    cout << "None available! Pick again.\n";
+                    break;
+                }
+            }
+            default: cout << "Invalid choice! Try again.\n";
+        }
+    }while(n_Ships < 4);
+}
+//Place your ships
+void PlaceIt(short hp, short &posx, short &posy, char Grid[][10], char pos){
+    bool isValid = false;
+    do{
+        cout << "Enter the coordinates to place your ship: ";
+        isValid = GetCoord(posx, posy);
+    }while(!isValid);
+    for(short p_Ship = 0; p_Ship < hp; p_Ship++){
+        if(pos == 'V'){
+            if(posx < hp) Grid[posx + p_Ship][posy] = '@';
+            else Grid[posx - p_Ship][posy] = '@';
+        }
+        else if(pos == 'H'){
+            if(posy < hp) Grid[posx][posy + p_Ship] = '@';
+            else Grid[posx][posy - p_Ship] = '@';
+        }
+    }
+}
+//Shoot at coordinates
+bool Volley(short &posx, short &posy, char Grid[][10]){
     bool isValid = false, isFinal = false;
     char choice;
     do{
         do{
-            cout << "Enter the coordinates of the peg separated by a space: ";
-            cin >> posx >> posy;
-            if((posx >= 0)&&(posx < 10)&&(posy >= 0)&&(posy < 10)) isValid = true;
-            else{
-                cout << "Invalid move! Try again.\n";
-                isValid = false;
-            }
+            cout << "Enter the coordinates to shoot at: ";
+            isValid = GetCoord(posx, posy);
         }while(!isValid);
-        Grid[posx][posy] = 'O';
         Display(Grid);
         cout << "Final choice? ";
         cin >> choice;
