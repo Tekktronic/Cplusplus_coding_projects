@@ -57,6 +57,7 @@ class Player{
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
         };             //shot grid for player's shots
+        short S_Count = 5;              //number of ships still afloat
         short posx, posy;               //coordinates
     public:
         Player();               //constructor for player instance
