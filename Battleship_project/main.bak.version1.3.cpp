@@ -12,24 +12,10 @@
 using namespace std;
 
 //Class definitions
-typedef char (*map)[10];        //typedef for a pointer to an array of arrays of characters
-class Player{
+typedef char (*map)[10]; //typedefs can make things more readable with such awkward types
+class Grid{
     private:
-        string P_Name;
-        vector<string> Shots;           //stores the shots fired
-        char p_Grid[10][10] = {         //placement grid for player's ships
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
-        };             
-        char s_Grid[10][10] = {         //shot grid for player's shots
+        char Grid[10][10] = {
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
@@ -41,58 +27,89 @@ class Player{
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
             {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
         };
-        short S_Count;              //number of ships still afloat
-        string Coords;          //string representing the coordinate pair
-        short posx, posy;       //stores the x- and the y-coordinates as integers
     public:
-        Player();               //default constructor for player instance
-        Player(string);         //constructor for player instance
+        map GetGrid();
+};
+class Player{
+    private:
+        vector<string> Shots;   //stores the shots fired
+        char p_Grid[10][10] = {
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+        };             //placement grid for player's ships
+        char s_Grid[10][10] = {
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+            {'_', '_', '_', '_', '_', '_', '_', '_', '_', '_'},
+        };             //shot grid for player's shots
+        short S_Count = 5;              //number of ships still afloat
+        short posx, posy;               //coordinates
+    public:
+        Player();               //constructor for player instance
         ~Player();              //destructor for player instance
-        map P_Grid();           //access the ship placement grid
-        map S_Grid();           //access the shot placement grid
-        bool GetCoord();        //input coordinates
-        void C_Ships(char[][10]);               //choose ships to place
-        void PlaceIt(short, char[][10], char);  //place ships on placement grid
-        bool Volley(char[][10]);                //fire a shot
-        void Display(char[][10]);               //display grid
-        bool isTurn(char[][10]);                //generate 1 full turn
+        map P_Grid();                                           //access the ship placement grid
+        map S_Grid();                                           //access the shot placement grid
+        void Populate(char[][10]);                              //populates the grid
+        bool GetCoord(short &, short &);                                //input coordinates
+        void C_Ships(short &, short &, char[][10]);                    //choose ships to place
+        void PlaceIt(short, short &, short &, char[][10], char);        //place ships on placement grid
+        bool Volley(short &, short &, char[][10]);                      //fire a shot
+        void Display(char[][10]);                                       //display grid
+        bool isTurn(char[][10]);                                        //generate 1 full turn
 };
 //Global variables and constants
 
 //Function prototypes
+//bool GetCoord(short &, short &);
+void Populate(short &, short &, char[][10]);
+void PlaceIt(short, short &, short &, char[][10], char);
+bool Volley(short &, short &, char[][10]);
+//void Display(char[][10]);
 
 //Execution begins HERE
 int main(int argc, char** argv){
     //Declare variables
     char (*b_Ground)[10];
-    Player *Ez = new Player("Ezra");
-    Player *Some = new Player();
+    short posx, posy;
+    Player *Ez = new Player();
     b_Ground = Ez-> P_Grid();
     Ez-> Display(b_Ground);
-    Ez-> C_Ships(b_Ground);
-    b_Ground = Some-> P_Grid();
-    Some-> Display(b_Ground);
-    Some-> C_Ships(b_Ground);
+    Ez-> C_Ships(posx, posy, b_Ground);
     char mChoice;
     do{
         b_Ground = Ez-> S_Grid();
         Ez-> Display(b_Ground);
-        Ez-> Volley(Some->P_Grid());
+        Ez-> Volley(posx, posy, b_Ground);
         Ez-> Display(b_Ground);
         cout << "Continue(y/n)? ";
         cin >> mChoice;
-    }while(toupper(mChoice) == 'Y');
-    delete Ez;
-    delete Some;
+    }while(mChoice == 'y'||mChoice == 'Y');
     //Execution ends HERE
     return 0;
 }
+//Function definitions
+map Grid::GetGrid(){
+    return Grid;
+}
+
 //Input coordinates
 Player::Player(){
     //initializing code here
-}
-Player::Player(string Name){
-    S_Count = 5;
 }
 Player::~Player(){
     //cleanup code here
@@ -103,10 +120,11 @@ map Player::P_Grid(){
 map Player::S_Grid(){
     return s_Grid;
 }
-bool Player::GetCoord(){
+bool Player::GetCoord(short &posx, short &posy){
     bool isValid = false;
+    string Coords;
     cin >> Coords;
-    switch(toupper(Coords[0])){
+    switch(Coords[0]){
         case 'A': posx = 0; break;
         case 'B': posx = 1; break;
         case 'C': posx = 2; break;
@@ -132,7 +150,7 @@ bool Player::GetCoord(){
         case '9': posy = 9; break;
         default: break;
     }
-    if((toupper(Coords[0]) >= 'A')&&(toupper(Coords[0]) <= 'J')&&(Coords[1] >= '0')&&(Coords[1] <= '9') && Coords.size() == 2){
+    if((Coords[0] >= 'A')&&(Coords[0] <= 'J')&&(Coords[1] >= '0')&&(Coords[1] <= '9') && Coords.size() == 2){
         isValid = true;
     }
     else{
@@ -141,9 +159,9 @@ bool Player::GetCoord(){
     return isValid;
 }
 //Populate the board
-void Player::C_Ships(char p_Grid[][10]){
+void Player::C_Ships(short &posx, short &posy, char p_Grid[][10]){
     char pos = '0', s_type = '0';
-    short ac_left = 1, bs_left = 1, ds_left = 1, sb_left = 1, pb_left = 1;
+    static short ac_left = 1, bs_left = 1, ds_left = 1, sb_left = 1, pb_left = 1;
     short hp = 0, n_Ships = 0;
     do{
         cout << "Enter the type of ship to place:\n";
@@ -154,16 +172,16 @@ void Player::C_Ships(char p_Grid[][10]){
         cout << "E. Patrol boat (" << pb_left << " available)\n";
         cout << "Enter your choice: ";
         cin >> s_type;
-        switch(toupper(s_type)){
+        switch(s_type){
             case 'A':{
                 if(ac_left > 0){
                     hp = 5;
                     do{
                         cout << "Place vertically or horizontally(V/H)? ";
                         cin >> pos;
-                        if(toupper(pos) != 'H' && toupper(pos) != 'V') cout << "Invalid placement! Try again.\n";
-                    }while(toupper(pos) != 'H' && toupper(pos) != 'V');
-                    PlaceIt(hp, p_Grid, toupper(pos));
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, p_Grid, pos);
                     Display(p_Grid);
                     ac_left--;
                     n_Ships++;
@@ -180,9 +198,9 @@ void Player::C_Ships(char p_Grid[][10]){
                     do{
                         cout << "Place vertically or horizontally(V/H)? ";
                         cin >> pos;
-                        if(toupper(pos) != 'H' && toupper(pos) != 'V') cout << "Invalid placement! Try again.\n";
-                    }while(toupper(pos) != 'H' && toupper(pos) != 'V');
-                    PlaceIt(hp,p_Grid, pos);
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, p_Grid, pos);
                     Display(p_Grid);
                     bs_left--;
                     n_Ships++;
@@ -199,9 +217,9 @@ void Player::C_Ships(char p_Grid[][10]){
                     do{
                         cout << "Place vertically or horizontally(V/H)? ";
                         cin >> pos;
-                        if(toupper(pos) != 'H' && toupper(pos) != 'V') cout << "Invalid placement! Try again.\n";
-                    }while(toupper(pos) != 'H' && toupper(pos) != 'V');
-                    PlaceIt(hp, p_Grid, pos);
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, p_Grid, pos);
                     Display(p_Grid);
                     ds_left--;
                     n_Ships++;
@@ -218,9 +236,9 @@ void Player::C_Ships(char p_Grid[][10]){
                     do{
                         cout << "Place vertically or horizontally(V/H)? ";
                         cin >> pos;
-                        if(toupper(pos) != 'H' && toupper(pos) != 'V') cout << "Invalid placement! Try again.\n";
-                    }while(toupper(pos) != 'H' && toupper(pos) != 'V');
-                    PlaceIt(hp, p_Grid, pos);
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, p_Grid, pos);
                     Display(p_Grid);
                     sb_left--;
                     n_Ships++;
@@ -237,9 +255,9 @@ void Player::C_Ships(char p_Grid[][10]){
                     do{
                         cout << "Place vertically or horizontally(V/H)? ";
                         cin >> pos;
-                        if(toupper(pos) != 'H' && toupper(pos) != 'V') cout << "Invalid placement! Try again.\n";
-                    }while(toupper(pos) != 'H' && toupper(pos) != 'V');
-                    PlaceIt(hp, p_Grid, pos);
+                        if(pos != 'H' && pos != 'V') cout << "Invalid placement! Try again.\n";
+                    }while(pos != 'H' && pos != 'V');
+                    PlaceIt(hp, posx, posy, p_Grid, pos);
                     Display(p_Grid);
                     pb_left--;
                     n_Ships++;
@@ -255,20 +273,20 @@ void Player::C_Ships(char p_Grid[][10]){
     }while(n_Ships < 5);
 }
 //Place your ships
-void Player::PlaceIt(short hp, char p_Grid[][10], char pos){
+void Player::PlaceIt(short hp, short &posx, short &posy, char p_Grid[][10], char pos){
     bool isValid = false, isFinal = false;
     char choice;
     do{
         do{
             cout << "Enter the coordinates to place your ship: ";
-            isValid = GetCoord();
+            isValid = GetCoord(posx, posy);
         }while(!isValid);
         for(short p_Ship = 0; p_Ship < hp; p_Ship++){
-            if(toupper(pos) == 'V'){
+            if(pos == 'V'){
                 if(posx < hp) p_Grid[posx + p_Ship][posy] = '@';
                 else p_Grid[posx - p_Ship][posy] = '@';
             }
-            else if(toupper(pos) == 'H'){
+            else if(pos == 'H'){
                 if(posy < hp) p_Grid[posx][posy + p_Ship] = '@';
                 else p_Grid[posx][posy - p_Ship] = '@';
             }
@@ -276,14 +294,14 @@ void Player::PlaceIt(short hp, char p_Grid[][10], char pos){
         Display(p_Grid);
         cout << "Final choice? ";
         cin >> choice;
-        if(toupper(choice) == 'Y') isFinal = true;
+        if(choice == 'Y' || choice == 'y') isFinal = true;
         else{
             for(short p_Ship = 0; p_Ship < hp; p_Ship++){
-                if(toupper(pos) == 'V'){
+                if(pos == 'V'){
                     if(posx < hp) p_Grid[posx + p_Ship][posy] = '_';
                     else p_Grid[posx - p_Ship][posy] = '_';
                 }
-                else if(toupper(pos) == 'H'){
+                else if(pos == 'H'){
                     if(posy < hp) p_Grid[posx][posy + p_Ship] = '_';
                     else p_Grid[posx][posy - p_Ship] = '_';
                 }
@@ -294,25 +312,24 @@ void Player::PlaceIt(short hp, char p_Grid[][10], char pos){
     }while(!isFinal);
 }
 //Shoot at coordinates
-bool Player::Volley(char Grid[][10]){
+bool Player::Volley(short &posx, short &posy, char s_Grid[][10]){
     bool isValid = false, isFinal = false;
     char choice;
     do{
         do{
             cout << "Enter the coordinates to shoot at: ";
-            isValid = GetCoord();
+            isValid = GetCoord(posx, posy);
         }while(!isValid);
-        s_Grid[posx][posy] = 'o';
         Display(s_Grid);
         cout << "Final choice? ";
         cin >> choice;
-        if(toupper(choice) == 'Y'){
+        if(choice == 'y' || choice == 'Y'){
             isFinal = true;
-            if(Grid[posx][posy] == '@'){
+            if(p_Grid[posx][posy] == '@'){
                 s_Grid[posx][posy] = 'X';
                 Display(s_Grid);
             }
-            else if(Grid[posx][posy] == '_'){
+            else if(p_Grid[posx][posy] == '_'){
                 s_Grid[posx][posy] = '-';            
                 Display(s_Grid);
             }
