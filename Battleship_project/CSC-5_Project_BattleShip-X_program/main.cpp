@@ -58,9 +58,9 @@ class Player{
         void C_Ships(char[][10]);               //choose ships to place
         void PlaceIt(short, char[][10], char);  //place ships on placement grid
         bool Volley(char[][10]);                //fire a shot
-        short Impact(string, USS);               //registers hits into the appropriate ship
+        short Impact(string, USS);              //registers hits into the appropriate ship
         void Display(char[][10]);               //display grid
-        bool Victory(short); //trial function - modify
+        bool Victory(short);                    //trial function - modify
 };
 //Global variables and constants
 
