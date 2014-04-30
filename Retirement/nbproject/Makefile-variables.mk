@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=Cygwin_4.x-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/Cygwin_4.x-Windows
-CND_ARTIFACT_NAME_Debug=csc-5_project_battleship-x_program_v1.1
-CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin_4.x-Windows/csc-5_project_battleship-x_program_v1.1
+CND_ARTIFACT_NAME_Debug=retirement
+CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin_4.x-Windows/retirement
 CND_PACKAGE_DIR_Debug=dist/Debug/Cygwin_4.x-Windows/package
-CND_PACKAGE_NAME_Debug=csc-5projectbattleship-xprogramv1.1.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin_4.x-Windows/package/csc-5projectbattleship-xprogramv1.1.tar
+CND_PACKAGE_NAME_Debug=retirement.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin_4.x-Windows/package/retirement.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin_4.x-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin_4.x-Windows
-CND_ARTIFACT_NAME_Release=csc-5_project_battleship-x_program_v1.1
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin_4.x-Windows/csc-5_project_battleship-x_program_v1.1
+CND_ARTIFACT_NAME_Release=retirement
+CND_ARTIFACT_PATH_Release=dist/Release/Cygwin_4.x-Windows/retirement
 CND_PACKAGE_DIR_Release=dist/Release/Cygwin_4.x-Windows/package
-CND_PACKAGE_NAME_Release=csc-5projectbattleship-xprogramv1.1.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin_4.x-Windows/package/csc-5projectbattleship-xprogramv1.1.tar
+CND_PACKAGE_NAME_Release=retirement.tar
+CND_PACKAGE_PATH_Release=dist/Release/Cygwin_4.x-Windows/package/retirement.tar
 #
 # include compiler specific variables
 #

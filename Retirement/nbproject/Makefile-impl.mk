@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=CSC-5_Project_BattleShip-X_program_v1.1
+PROJECTNAME=Retirement
 
 # Active Configuration
 DEFAULTCONF=Debug

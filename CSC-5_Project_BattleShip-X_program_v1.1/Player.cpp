@@ -257,6 +257,7 @@ void Player::PlaceIt(short hp){
                         cout << "Position occupied! Try again.\n";
                         Chkpos.clear();
                     }
+
                 }
             }
         }while(!isValid);
