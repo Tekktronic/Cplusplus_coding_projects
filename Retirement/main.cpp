@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
     float salary = 50000.0f;            
     float i_Bond = 0.05f;               
     float savAmt = salary/i_Bond;       
-    int n_Years = 48;                  
-    float depyear = 0.10f;              
+    int n_Years = 35;                  
+    float depyear = 0.20f;              
     //calculate your retirement savings
     float r_Sav = Retire(0, i_Bond, n_Years, depyear * salary);
     cout << "Salary = $" << fixed << showpoint << setprecision(2)<< salary << endl;
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 float Retire(float pal, float ir, int n, float dep){
     //declare savings
     float savings = pal;
-    for(int year; year <= n; year++){
+    for(int year = 0; year <= n; year++){
         savings *= (1+ir);
         savings += dep;
     }
