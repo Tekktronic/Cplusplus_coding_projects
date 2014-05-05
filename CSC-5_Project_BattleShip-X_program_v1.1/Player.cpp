@@ -330,7 +330,7 @@ void Player::Volley(grid Grid){
 }
 //Checks for the victory conditions. returns TRUE if all 5 Ships are sunk
 bool Player::Victory(short s_Sunk, grid c_Grid){
-    if(FleetCT == s_Sunk){
+    if(SunkCT == s_Sunk){
         cout << "The enemy fleet has been DECIMATED!!!\n";
         cout << "You have achieved a NAVAL VICTORY! Conratulations,";
         cout << "Admiral " << P_Name << endl;

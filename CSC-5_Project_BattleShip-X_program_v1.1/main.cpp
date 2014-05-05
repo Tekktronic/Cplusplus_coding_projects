@@ -48,8 +48,7 @@ int main(int argc, char** argv){
             Player1->Display(b_Ground);                 //display the current Player's shot grid
             Player1->Volley(Player2->P_Grid());         //current Player's shot, to be registered in current Player's shot grid and current Opponent's placement grid
             Player1->Impact(Player1->Shot(), Player2->Fleet());         //evaluates the shot - either a hit or a miss
-            isWinner = Player1->Victory(Player2->SunkSize(), Player2->P_Grid());           //sets the isWinner boolean to TRUE if the current Player has sunk ALL current Opponent's Ships
-            isWinner = Player1->Victory(Player2->SunkSize(), Player2->P_Grid());           //sets the isWinner boolean to TRUE if the current Player has sunk ALL current Opponent's Ships
+            isWinner = Player1->Victory(Player2->FleetSize(), Player2->P_Grid());           //sets the isWinner boolean to TRUE if the current Player has sunk ALL current Opponent's Ships
             if(isWinner) break;                         //break out of the loop if current Player is the Winner
             do{
                 cin.ignore();
@@ -59,8 +58,8 @@ int main(int argc, char** argv){
             b_Ground = Player2->S_Grid();               //set the pointer to current Player's shot grid
             Player2->Display(b_Ground);                 //display current Player's shot grid
             Player2->Volley(Player1->P_Grid());         //current Opponent's shot, to be registered in current Opponent's shot grid and current Player's placement grid
-            Player1->Impact(Player2->Shot(), Player1->Fleet());         //evaluates the shot - either a hit or a miss
-            isWinner = Player2->Victory(Player1->SunkSize(), Player1->P_Grid());           //sets the isWinner boolean to TRUE if the current Player has sunk ALL current Opponent's Ships
+            Player2->Impact(Player2->Shot(), Player1->Fleet());         //evaluates the shot - either a hit or a miss
+            isWinner = Player2->Victory(Player1->FleetSize(), Player1->P_Grid());           //sets the isWinner boolean to TRUE if the current Player has sunk ALL current Opponent's Ships
             if(isWinner) break;                         //break out of the loop if current Player is the Winner
             do{
                 cin.ignore();
