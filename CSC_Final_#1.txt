@@ -1,0 +1,47 @@
+unsigned short origval, di10000, dig1000, dig100, dig10, dig1, rev;
+    cout<<"Please enter a # below 53556: "<<endl;
+    while (origval>53556&&origval<=0) {
+        cout<<"Conversion not possible."<<endl;
+        cout<<"Re-Enter: "<<endl;
+        cin>>origval;
+    }
+    cin>>origval;
+    
+    dig1=origval%10;
+    //cout<<"dig1: "<<dig1<<endl;
+    origval=origval/10;
+    dig10=origval%10;
+    //cout<<"dig10: "<<dig10<<endl;
+    origval=origval/10;
+    dig100=origval%10;
+    //cout<<"dig100: "<<dig100<<endl;
+    origval=origval/10;
+    dig1000=origval%10;
+    //cout<<"dig1000: "<<dig1000<<endl;
+    origval=origval/10;
+    di10000=origval%10;
+    //cout<<"dig10000: "<<di10000<<endl;
+       
+    rev=(dig1*10000)+(dig10*1000)+(dig100*100)+(dig1000*10)+(di10000);
+    
+    if (di10000==0) {
+    rev=(rev/10); 
+        if (dig1000==0){
+                rev=rev/10;
+             if (dig100==0){
+                 rev=rev/10;
+                 if (dig10==0){
+                     rev=rev/10;
+                     if (dig1=0){
+                     rev=rev/10;      
+                     }
+                 }
+            }
+        }
+    }
+    if (rev=53556){
+        cout<<"Conversion not possible. Number entered was too high."<<endl;
+    }
+    else if (rev<53556) {
+        cout<<rev<<endl;
+    }
