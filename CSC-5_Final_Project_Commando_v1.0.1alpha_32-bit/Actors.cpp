@@ -164,8 +164,7 @@ bool Player::Move(tile **grid, int &ROW, int &COL){
     }
 }
 bool Player::GetItem(){
-    
-    
+        
 }
 bool Player::ret_St(){
     return isAlive;
